@@ -24,4 +24,56 @@ public class MoteurRPN {
 		}
 		_pile.push(operande);
 	}
+	
+	public void eval(Operation op)throws OperandeManquantException, DivivionParZeroException
+	{
+		double valPile1 = MIN_VALUE-1;
+		double valPile2 = MIN_VALUE - 1;
+		
+		try
+		{
+			double operande1 = _pile.pop(); valPile1 = operande1;
+			double operande2 = _pile.pop(); valPile2 = operande2;
+			
+			if(operande1 == 0.0 && op.getOperation()=='/')
+			{
+				_pile.push(valPile2);
+				_pile.push(valPile1);
+				throw new DivivionParZeroException();
+			}
+			this.ajouterOperande(op.eval(operande2, operande1));
+		}
+		catch (EmptyStackException e) 
+		{
+			if(valPile1 >= MIN_VALUE)
+			{
+				_pile.push(valPile1);
+			}
+			throw new OperandeManquantException();
+		}
+		catch(OperandeTropPetitException | OperandeTropGrandException e)
+		{
+			_pile.push(valPile2);
+			_pile.push(valPile1);
+			System.out.println(e.getMessage()+" ("+valPile2+" "+op.getOperation()+" "+valPile1+""
+								+ " = "+op.eval(valPile2, valPile1)+")");
+		}
+	}
+	
+	public String afficher()
+	{
+		String contenu = "";
+		
+		for(double d : _pile)
+		{
+			contenu += d + " ";
+		}
+		
+		return contenu;
+	}
+	
+	public int getTaillePile()
+	{
+		return _pile.size();
+	}
 }

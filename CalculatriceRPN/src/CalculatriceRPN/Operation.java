@@ -47,7 +47,7 @@ public enum Operation {
 		_symbole = symbole;
 	}
 	
-	public abstract double eval(double op1,double op2) throws DivivionParZeroException;
+	public abstract double eval(double op1,double op2);
 	
 	public char getOperation()
 	{
