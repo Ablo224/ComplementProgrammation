@@ -17,13 +17,15 @@ public class SaisieRPN {
 	{
 		String str = "";
 		boolean stop = false;
-		System.out.println("Entrée un nombre || Une opération || \"exit\" pour quitter");
+		System.out.println("Entrée un nombre || Une opération || \"exit\" pour quitter\nA vous de jouer:");
 		
 		while(stop == false)
 		{
 			if (_sc.hasNextDouble()) {
 				_mrpn.ajouterOperande(_sc.nextDouble()); 
+				System.out.print("Elements actuels de la pile: ");
 				System.out.println(_mrpn.afficher());
+				System.out.println("Entrée un nombre || Une opération || \"exit\" pour quitter\nA vous de jouer:");
 				str = _sc.nextLine(); 
 			}
 			
@@ -31,6 +33,7 @@ public class SaisieRPN {
 				str = _sc.nextLine();
 				if (this.estOperation(str)) 
 					if (_mrpn.operationPossible()) { 
+						System.out.print("Elements actuels de la pile: ");
 						_mrpn.eval(this.returnOperation(str)); 
 						System.out.println(_mrpn.afficher());  
 					} 
@@ -42,7 +45,6 @@ public class SaisieRPN {
 					stop = true;
 					System.out.println("BYE BYE");
 				}
-				
 				else
 					System.out.println("SAISIE INCORRECTE !!!");
 			}
@@ -66,5 +68,8 @@ public class SaisieRPN {
 		return null;
 
 	}
-
+	
+	public void contenuPile(){
+		System.out.println(_mrpn.afficher()+"\n");
+	}
 }
