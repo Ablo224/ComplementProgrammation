@@ -60,6 +60,12 @@ public class MoteurRPN {
 		}
 	}
 	
+	public boolean operationPossible(){
+		if(_pile.size()>=2) return true;
+		else return false;
+	}
+
+	
 	public String afficher()
 	{
 		String contenu = "";
